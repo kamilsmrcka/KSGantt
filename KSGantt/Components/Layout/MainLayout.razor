@@ -1,6 +1,38 @@
 ﻿@inherits LayoutComponentBase
+<RadzenLayout>
+    <RadzenHeader>
+        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0">
+            <RadzenSidebarToggle Click="@(() => sidebar1Expanded = !sidebar1Expanded)" />
+            <RadzenLabel Text="Header" />
+        </RadzenStack>
+    </RadzenHeader>
+    <RadzenSidebar @bind-Expanded="@sidebar1Expanded">
+        <RadzenPanelMenu>
+            <RadzenPanelMenuItem Text="Home" Icon="home" Path="/"  />
+            <RadzenPanelMenuItem Text="Kategorie" Icon="account_box" Path="CategoriesList" />
+            <RadzenPanelMenuItem Text="Úkoly" Icon="account_box" Path="TasksList" />
+            <RadzenPanelMenuItem Text="Pracovníci" Icon="account_box" Path="StaffsList" />
+            <RadzenPanelMenuItem Text="Plánování" Icon="account_box" Path="StaffTasksList" />
+        </RadzenPanelMenu>
+        <div class="rz-p-4">
+           
+        </div>
+    </RadzenSidebar>
+    <RadzenBody>
+        <div class="rz-p-4">
+            @Body
+        </div>
+    </RadzenBody>
+    <RadzenFooter>
+       
+    </RadzenFooter>
+</RadzenLayout>
 
-@Body
+@code {
+    bool sidebar1Expanded = true;
+}
+
+
 
 <div id="blazor-error-ui">
     An unhandled error has occurred.

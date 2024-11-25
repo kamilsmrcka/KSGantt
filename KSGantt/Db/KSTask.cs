@@ -1,9 +1,9 @@
 ﻿namespace KSGantt.Db
 {
-    public class Task : BaseObject
+    public class KSTask : BaseObject
     {
         public string Name { get; set; }
-        public Category Category { get; set; }
+        public KSCategory Category { get; set; }
 
         public double HoursCount { get; set; }
 

@@ -1,6 +1,6 @@
 ﻿namespace KSGantt.Db
 {
-    public class Project : BaseObject
+    public class KSProject : BaseObject
     {
         public string Name { get; set; }
     }

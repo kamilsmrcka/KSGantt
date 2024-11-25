@@ -2,30 +2,30 @@
 {
     public static class DbHelper
     {
-        public static List<Category> categories = new List<Category>();
-        public static List<Project> projects = new List<Project>();
-        public static List<Staff> staffs = new List<Staff>();
-        public static List<Task> tasks = new List<Task>();
-        public static List<StaffTask> staffTasks = new List<StaffTask>();
+        public static List<KSCategory> categories = new List<KSCategory>();
+        public static List<KSProject> projects = new List<KSProject>();
+        public static List<KSStaff> staffs = new List<KSStaff>();
+        public static List<KSTask> tasks = new List<KSTask>();
+        public static List<KSStaffTask> staffTasks = new List<KSStaffTask>();
 
         public static void InitData()
         {
-            Project pr = new Project() { Name = "Stavební firma" };
+            KSProject pr = new KSProject() { Name = "Stavební firma" };
 
-            Category ct1 = new Category() { Name = "Bagry" };
-            Category ct2 = new Category() { Name = "Projektant" };
+            KSCategory ct1 = new KSCategory() { Name = "Bagry" };
+            KSCategory ct2 = new KSCategory() { Name = "Projektant" };
 
-            Staff st1 = new Staff() { Category = ct1, WorkingFactor = 2, Name = "Bagrista 1" };
-            Staff st2 = new Staff() { Category = ct1, WorkingFactor = 0.9, Name = "Bagrista 2" };
-            Staff st3 = new Staff() { Category = ct2, WorkingFactor = 1, Name = "Projektant 1" };
-            Staff st4 = new Staff() { Category = ct2, WorkingFactor = 1.2, Name = "Projektant 2" };
+            KSStaff st1 = new KSStaff() { Category = ct1, WorkingFactor = 2, Name = "Bagrista 1" };
+            KSStaff st2 = new KSStaff() { Category = ct1, WorkingFactor = 0.9, Name = "Bagrista 2" };
+            KSStaff st3 = new KSStaff() { Category = ct2, WorkingFactor = 1, Name = "Projektant 1" };
+            KSStaff st4 = new KSStaff() { Category = ct2, WorkingFactor = 1.2, Name = "Projektant 2" };
 
-            Task ts1 = new Task() { Category = ct1, HoursCount = 8, Name = "Výkop jámy" };
-            Task ts2 = new Task() { Category = ct1, HoursCount = 3, Name = "Naložení hlíny" };
-            Task ts3 = new Task() { Category = ct2, HoursCount = 6, Name = "Sbírání podkladů" };
-            Task ts4 = new Task() { Category = ct2, HoursCount = 3, Name = "Analýza" };
+            KSTask ts1 = new KSTask() { Category = ct1, HoursCount = 8, Name = "Výkop jámy" };
+            KSTask ts2 = new KSTask() { Category = ct1, HoursCount = 3, Name = "Naložení hlíny" };
+            KSTask ts3 = new KSTask() { Category = ct2, HoursCount = 6, Name = "Sbírání podkladů" };
+            KSTask ts4 = new KSTask() { Category = ct2, HoursCount = 3, Name = "Analýza" };
 
-            StaffTask stt1 = new StaffTask() { StartTime = new DateTime(2024,1,1), Project = pr, Staff = st1, Task = ts1 };
+            KSStaffTask stt1 = new KSStaffTask() { StartTime = new DateTime(2024,1,1), Project = pr, Staff = st1, Task = ts1 };
 
             projects.AddRange(new[] { pr });
             categories.AddRange(new[] { ct1, ct2 });

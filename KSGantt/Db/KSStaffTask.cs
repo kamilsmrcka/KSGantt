@@ -1,11 +1,11 @@
 ﻿namespace KSGantt.Db
 {
-    public class StaffTask : BaseObject
+    public class KSStaffTask : BaseObject
     {
         public DateTime StartTime { get; set; }
-        public Project Project { get; set; }
-        public Staff Staff { get; set; }
-        public Task Task { get; set; }
+        public KSProject Project { get; set; }
+        public KSStaff Staff { get; set; }
+        public KSTask Task { get; set; }
         public double HoursCount { get 
             {
               return (Staff != null && Task != null) ? Task.HoursCount/Staff.WorkingFactor : 0;
