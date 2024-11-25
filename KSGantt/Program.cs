@@ -1,4 +1,5 @@
 using KSGantt.Components;
+using KSGantt.Db;
 using Radzen;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,5 +25,7 @@ app.UseAntiforgery();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
+
+DbHelper.InitData();
 
 app.Run();
