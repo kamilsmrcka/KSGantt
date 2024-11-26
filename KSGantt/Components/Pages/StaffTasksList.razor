@@ -7,7 +7,7 @@
 
 <RadzenDataGrid PageSize="5" AllowPaging="true" AllowSorting="true" ColumnWidth="200px" Data="@innerList" AllowFiltering="true">
     <Columns>
-        <RadzenDataGridColumn Property="@nameof(KSStaffTask.Id)" Title="ID" />
+        <RadzenDataGridColumn Property="@nameof(KSStaffTask.Id)" Title="ID" Visible="false" />
         <RadzenDataGridColumn Property="@nameof(KSStaffTask.StartTime)" Title="Zahájení" />
         <RadzenDataGridColumn Property="KSStaffTask.Project.Name" Title="Projekt" />
         <RadzenDataGridColumn Property="KSStaffTask.Staff.Name" Title="Pracovník" />

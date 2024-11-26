@@ -7,7 +7,7 @@
 
 <RadzenDataGrid PageSize="5" AllowPaging="true" AllowSorting="true" ColumnWidth="200px" Data="@innerList" AllowFiltering="true">
     <Columns>
-        <RadzenDataGridColumn Property="@nameof(KSStaff.Id)" Title="ID" />
+        <RadzenDataGridColumn Property="@nameof(KSStaff.Id)" Title="ID" Visible="false" />
         <RadzenDataGridColumn Property="KSStaff.Category.Name" Title="Kategorie" />
         <RadzenDataGridColumn Property="@nameof(KSStaff.Name)" Title="Název" />
         <RadzenDataGridColumn Property="@nameof(KSStaff.WorkingFactor)" Title="Koef. výkonnosti" FormatString="{0:n1}" />

@@ -1,6 +1,22 @@
 ﻿@page "/"
+@using KSGantt.Db
+@rendermode InteractiveServer
+@inject IJSRuntime JsRuntime
 
 <PageTitle>Home</PageTitle>
 
+<div id="ks-gantt"></div>
+
+@code{
 
 
+    protected override void OnAfterRender(bool firstRender)
+    {
+        JsRuntime.InvokeAsync<string>("InitKSGantt", DbHelper.staffs);
+        base.OnAfterRender(firstRender);
+    }
+
+   
+
+   
+}

@@ -1,0 +1,91 @@
+﻿#ks-gantt {
+    display: flex;
+}
+
+.ks-gantt-names {
+    width: 200px;
+}
+
+.ks-gantt-events {
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: -webkit-fill-available;
+}
+
+.ks-gantt-day-head {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f4f4fb;
+    color: #6f6f6f;
+    font-weight: 400;
+}
+
+.ks-gantt-row-title {
+    display: flex;
+    height: 28px;
+    width: 100%;
+    align-items: center;
+    background-color: #f4f4fb;
+    color: #6f6f6f;
+    font-weight: 400;
+    border: 1px solid #d4def7;
+    padding-left: 10px;
+}
+
+.ks-gantt-task-title {
+    flex-wrap: nowrap;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 400;
+    font-size: small;
+    overflow: hidden;
+    text-shadow: #000000 0 0 4px;
+    color: white;
+}
+
+
+.ks-gantt-row {
+    height: 28px;
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+    position: relative;
+}
+
+.ks-gantt-day {
+    border: 1px solid #d4def7;
+    margin: 0px;
+    padding: 0px;
+    width: 242px;
+    height: 28px;
+    display: inline-block;
+}
+
+.ks-gantt-hour {
+    border: 1px solid #edebeb;
+    background-color: #ffffff;
+    margin: 0px;
+    padding: 0px;
+    width: 10px;
+    height: 26px;
+    display: inline-block;
+}
+
+    .ks-gantt-hour.wrk {
+        background-color: #e8ffe7;
+    }
+
+.ks-gantt-task {
+    position: absolute;
+    height: 24px;
+    border-radius: 5px;
+    width: 480px;
+    top: 2px;
+    opacity: 0.6;
+}
