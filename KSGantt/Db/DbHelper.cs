@@ -20,12 +20,16 @@
             KSStaff st3 = new KSStaff() { Category = ct2, WorkingFactor = 1, Name = "Projektant 1" };
             KSStaff st4 = new KSStaff() { Category = ct2, WorkingFactor = 1.2, Name = "Projektant 2" };
 
-            KSTask ts1 = new KSTask() { Category = ct1, HoursCount = 8, Name = "Výkop jámy" };
-            KSTask ts2 = new KSTask() { Category = ct1, HoursCount = 3, Name = "Naložení hlíny" };
-            KSTask ts3 = new KSTask() { Category = ct2, HoursCount = 6, Name = "Sbírání podkladů" };
-            KSTask ts4 = new KSTask() { Category = ct2, HoursCount = 3, Name = "Analýza" };
+            KSTask ts1 = new KSTask() { Category = ct1, HoursCount = 16, Color = "rgb(192, 250, 180)", Name = "Výkop jámy" };
+            KSTask ts2 = new KSTask() { Category = ct1, HoursCount = 3, Color = "rgb(250, 180, 180)", Name = "Naložení hlíny" };
+            KSTask ts3 = new KSTask() { Category = ct2, HoursCount = 6, Color = "rgb(176, 177, 255)", Name = "Sbírání podkladů" };
+            KSTask ts4 = new KSTask() { Category = ct2, HoursCount = 3, Color = "rgb(250, 252, 164)", Name = "Analýza" };
 
             KSStaffTask stt1 = new KSStaffTask() { StartTime = new DateTime(2024,1,1), Project = pr, Staff = st1, Task = ts1 };
+            KSStaffTask stt2 = new KSStaffTask() { StartTime = new DateTime(2024,1,3), Project = pr, Staff = st1, Task = ts2 };
+            KSStaffTask stt3 = new KSStaffTask() { StartTime = new DateTime(2024,1,2), Project = pr, Staff = st2, Task = ts2 };
+            KSStaffTask stt4 = new KSStaffTask() { StartTime = new DateTime(2024,1,4), Project = pr, Staff = st3, Task = ts3 };
+            KSStaffTask stt5 = new KSStaffTask() { StartTime = new DateTime(2024,1,2), Project = pr, Staff = st4, Task = ts4 };
 
             projects.AddRange(new[] { pr });
             categories.AddRange(new[] { ct1, ct2 });

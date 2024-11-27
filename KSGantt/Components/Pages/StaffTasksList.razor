@@ -5,13 +5,13 @@
 <PageTitle>Plánování</PageTitle>
 <RadzenText TextStyle="TextStyle.H5">Plánování</RadzenText>
 
-<RadzenDataGrid PageSize="5" AllowPaging="true" AllowSorting="true" ColumnWidth="200px" Data="@innerList" AllowFiltering="true">
+<RadzenDataGrid PageSize="5" AllowPaging="true" AllowSorting="true" ColumnWidth="200px" Data="@innerList" AllowFiltering="true" AllowAlternatingRows="false" RowRender="RowRender">
     <Columns>
         <RadzenDataGridColumn Property="@nameof(KSStaffTask.Id)" Title="ID" Visible="false" />
         <RadzenDataGridColumn Property="@nameof(KSStaffTask.StartTime)" Title="Zahájení" />
-        <RadzenDataGridColumn Property="KSStaffTask.Project.Name" Title="Projekt" />
-        <RadzenDataGridColumn Property="KSStaffTask.Staff.Name" Title="Pracovník" />
-        <RadzenDataGridColumn Property="KSStaffTask.Task.Name" Title="Úloha" />
+        <RadzenDataGridColumn Property="KSStaffTask.Project.Name" Title="Projekt" SortProperty="Project.Name" />
+        <RadzenDataGridColumn Property="KSStaffTask.Staff.Name" Title="Pracovník" SortProperty="Staff.Name" />
+        <RadzenDataGridColumn Property="KSStaffTask.Task.Name" Title="Úloha" SortProperty="Task.Name" />
         <RadzenDataGridColumn Property="@nameof(KSStaffTask.HoursCount)" Title="Odhad pracnosti" />
         <RadzenDataGridColumn Property="@nameof(KSStaffTask.CreateDate)" Title="Vytvořeno" />
     </Columns>
@@ -24,6 +24,18 @@
     {
         innerList = Db.DbHelper.staffTasks;
         return base.OnInitializedAsync();
+
+    }
+
+    void RowRender(RowRenderEventArgs<KSStaffTask> args)
+    {
+
+        if (args.Data.Task != null && args.Data.Task.Color != null)
+        {
+            args.Attributes.Add("style", $"background-color:{args.Data.Task.Color};");
+
+
+        }
 
     }
 

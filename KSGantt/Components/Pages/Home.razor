@@ -12,7 +12,7 @@
 
     protected override void OnAfterRender(bool firstRender)
     {
-        JsRuntime.InvokeAsync<string>("InitKSGantt", DbHelper.staffs);
+        JsRuntime.InvokeAsync<string>("InitKSGantt", DbHelper.staffTasks);
         base.OnAfterRender(firstRender);
     }
 

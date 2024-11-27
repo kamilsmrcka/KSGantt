@@ -5,10 +5,10 @@
 <PageTitle>Úkoly</PageTitle>
 <RadzenText TextStyle="TextStyle.H5">Úkoly</RadzenText>
 
-<RadzenDataGrid PageSize="5" AllowPaging="true" AllowSorting="true" ColumnWidth="200px" Data="@innerList" AllowFiltering="true">
+<RadzenDataGrid PageSize="5" AllowPaging="true" AllowSorting="true" ColumnWidth="200px" Data="@innerList" AllowFiltering="true" AllowAlternatingRows="false" RowRender="RowRender">
     <Columns>
         <RadzenDataGridColumn Property="@nameof(KSTask.Id)" Title="ID" Visible="false" />
-        <RadzenDataGridColumn Property="KSTask.Category.Name" Title="Kategorie" />
+        <RadzenDataGridColumn Property="KSTask.Category.Name" Title="Kategorie" SortProperty="Category.Name" />
         <RadzenDataGridColumn Property="@nameof(KSTask.Name)" Title="Název" />
         <RadzenDataGridColumn Property="@nameof(KSTask.HoursCount)" Title="Odhad pracnosti" />
         <RadzenDataGridColumn Property="@nameof(KSTask.CreateDate)" Title="Vytvořeno" />
@@ -23,6 +23,18 @@
         innerList = Db.DbHelper.tasks;
         return base.OnInitializedAsync();
 
+    }
+
+    void RowRender(RowRenderEventArgs<KSTask> args)
+    {
+
+        if (args.Data.Color != null)
+        {
+            args.Attributes.Add("style", $"background-color:{args.Data.Color};");
+            
+
+        }
+       
     }
 
 }
