@@ -2,7 +2,7 @@
 {
     public class KSStaffTask : BaseObject
     {
-        public DateTime StartTime { get; set; }
+        public DateTime StartDate { get; set; }
         public KSProject Project { get; set; }
         public KSStaff Staff { get; set; }
         public KSTask Task { get; set; }

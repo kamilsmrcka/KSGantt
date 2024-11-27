@@ -8,11 +8,11 @@
 <RadzenDataGrid PageSize="5" AllowPaging="true" AllowSorting="true" ColumnWidth="200px" Data="@innerList" AllowFiltering="true" AllowAlternatingRows="false" RowRender="RowRender">
     <Columns>
         <RadzenDataGridColumn Property="@nameof(KSStaffTask.Id)" Title="ID" Visible="false" />
-        <RadzenDataGridColumn Property="@nameof(KSStaffTask.StartTime)" Title="Zahájení" />
+        <RadzenDataGridColumn Property="@nameof(KSStaffTask.StartDate)" Title="Zahájení" />
         <RadzenDataGridColumn Property="KSStaffTask.Project.Name" Title="Projekt" SortProperty="Project.Name" />
         <RadzenDataGridColumn Property="KSStaffTask.Staff.Name" Title="Pracovník" SortProperty="Staff.Name" />
         <RadzenDataGridColumn Property="KSStaffTask.Task.Name" Title="Úloha" SortProperty="Task.Name" />
-        <RadzenDataGridColumn Property="@nameof(KSStaffTask.HoursCount)" Title="Odhad pracnosti" />
+        <RadzenDataGridColumn Property="@nameof(KSStaffTask.HoursCount)" Title="Odhad pracnosti" FormatString="{0:n1}" />
         <RadzenDataGridColumn Property="@nameof(KSStaffTask.CreateDate)" Title="Vytvořeno" />
     </Columns>
 </RadzenDataGrid>

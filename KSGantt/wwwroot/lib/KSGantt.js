@@ -1,11 +1,12 @@
 ﻿class KSGantt {
-    constructor(containerId, startDate, daysCount, rowsCount) {
+    constructor(containerId, startDate, daysCount, rowsCount, data) {
         this.container = document.getElementById(containerId);
         this.startDate = startDate;
         this.daysCount = daysCount;
         this.rowsCount = rowsCount;
         this.allDays = this.generateDateArray(startDate, daysCount);
         this.rows = [];
+        this.data = data;
         this.init();
     }
 
@@ -33,27 +34,30 @@
         this.eventsContainer.className = "ks-gantt-events";
         this.container.appendChild(this.eventsContainer);
 
-        this.loadData();
+        this.loadData(this.data);
     }
 
     loadData(data) {
-        const row = new KSGanttRow("", this.daysCount, this.allDays, true);
+        const row = new KSGanttRow(this.daysCount, this.allDays, true);
         this.namesContainer.appendChild(row.titleElement);
         this.eventsContainer.appendChild(row.rowElement);
 
-
-        for (let i = 0; i < this.rowsCount; i++) {
-            const row = new KSGanttRow(`row${i}`, this.daysCount, this.allDays, false);
+     
+        data.forEach(obj => {
+            const row = new KSGanttRow(this.daysCount, this.allDays, false, obj);
             this.rows.push(row);
             this.namesContainer.appendChild(row.titleElement);
             this.eventsContainer.appendChild(row.rowElement);
-        }
+        });
+       
+
     }
 }
 
 class KSGanttRow {
-    constructor(title, daysCount, allDays, isTitle = false) {
-        this.title = title;
+    constructor(daysCount, allDays, isTitle = false, data) {
+        this.title = isTitle ? "" : data.staff.name;
+        this.data = isTitle ? [] : data;
         this.daysCount = daysCount;
         this.allDays = allDays;
         this.isTitle = isTitle;
@@ -76,7 +80,7 @@ class KSGanttRow {
         }
 
         if (!this.isTitle) {
-            const task = new KSGanttTask("Název úlohy");
+            const task = new KSGanttTask(this.data);
             this.tasks.push(task);
             this.rowElement.appendChild(task.element);
         }
@@ -93,6 +97,7 @@ class KSGanttDay {
         if (this.isTitle) {
             const headTitle = document.createElement("div");
             headTitle.className = "ks-gantt-day-head";
+            headTitle.setAttribute("data-day", `${this.dayData.day}.${this.dayData.month}.${this.dayData.year}`)
             headTitle.innerText = `${this.dayData.day}.${this.dayData.month}.${this.dayData.year}`;
             this.element.appendChild(headTitle);
         } else {
@@ -109,22 +114,39 @@ class KSGanttDay {
 }
 
 class KSGanttTask {
-    constructor(title) {
-        this.title = title;
+    constructor(data) {
+        this.title = data.task.name;
         this.element = document.createElement("div");
         this.element.className = "ks-gantt-task";
+        this.data = data;
 
-        this.element.style.left = (Math.floor(Math.random() * (500 - 0 + 1) + 0)) + "px";
-        this.element.style.width = (Math.floor(Math.random() * (1000 - 100 + 1) + 100)) + "px";
+        var date = this.formatDate(this.data.startDate);
+        var titleElement = document.querySelector(`.ks-gantt-day-head[data-day="${date}"]`);
+        var taskX = titleElement.getBoundingClientRect().left - titleElement.parentNode.parentNode.getBoundingClientRect().left;
+        this.element.style.left = `${taskX}px`;
+
+        var ceilDays = Math.ceil(data.hoursCount / 8);
+        this.element.style.width = `${ceilDays*242}px`;
 
         const taskTitle = document.createElement("div");
         taskTitle.className = "ks-gantt-task-title";
         taskTitle.innerText = this.title;
 
-        this.element.style.backgroundColor = ["#fc2803", "#28fc03", "#0328fc", "#fca503"][Math.floor(Math.random() * 4)];
+        this.element.style.backgroundColor = this.data.task.color;
         this.element.appendChild(taskTitle);
 
         this.enableDragAndResize();
+    }
+
+    formatDate(isoDate) {
+    
+        const dateObj = new Date(isoDate);
+
+        const day = dateObj.getDate(); 
+        const month = dateObj.getMonth() + 1; 
+        const year = dateObj.getFullYear(); 
+
+        return `${day}.${month}.${year}`;
     }
 
     enableDragAndResize() {
@@ -177,8 +199,9 @@ class KSGanttTask {
 
 
 window.InitKSGantt = function (data) {
-    console.log(data);
-    new KSGantt("ks-gantt", "2024-1-1", 30, 15);
+   
+
+    new KSGantt("ks-gantt", "2024-1-1", 30, 15, data);
 
 }
 

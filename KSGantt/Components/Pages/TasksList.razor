@@ -10,7 +10,7 @@
         <RadzenDataGridColumn Property="@nameof(KSTask.Id)" Title="ID" Visible="false" />
         <RadzenDataGridColumn Property="KSTask.Category.Name" Title="Kategorie" SortProperty="Category.Name" />
         <RadzenDataGridColumn Property="@nameof(KSTask.Name)" Title="Název" />
-        <RadzenDataGridColumn Property="@nameof(KSTask.HoursCount)" Title="Odhad pracnosti" />
+        <RadzenDataGridColumn Property="@nameof(KSTask.HoursCount)" Title="Odhad pracnosti" FormatString="{0:n1}" />
         <RadzenDataGridColumn Property="@nameof(KSTask.CreateDate)" Title="Vytvořeno" />
     </Columns>
 </RadzenDataGrid>
