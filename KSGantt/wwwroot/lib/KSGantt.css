@@ -37,8 +37,13 @@
     border: 1px solid #d4def7;
     padding-left: 10px;
 }
-
-.ks-gantt-task-title {
+    .ks-gantt-row-title.drag {
+        border: 1px dashed #f79090;
+    }
+    .ks-gantt-row-title.hov {
+        background-color: #ffcaca;
+    }
+    .ks-gantt-task-title {
     flex-wrap: nowrap;
     width: 100%;
     height: 100%;
@@ -90,4 +95,20 @@
     border-radius: 5px;
     width: 480px;
     top: 2px;
+}
+
+
+
+#ks-gantt-task-area {
+    display: inline-block;
+}
+
+.ks-gantt-task-area-item {
+    padding: 2px 5px;
+    margin: 2px;
+    border: 1px solid silver;
+    border-radius: 6px;
+    text-shadow: #000000 0 0 4px;
+    color: white;
+    cursor: move;
 }

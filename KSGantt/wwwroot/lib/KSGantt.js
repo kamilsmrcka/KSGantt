@@ -24,7 +24,7 @@
             });
             currentDate.setDate(currentDate.getDate() + 1);
         }
-      
+
         return result;
     }
 
@@ -72,6 +72,8 @@ class KSGanttRow {
         this.titleElement = document.createElement("div");
         this.titleElement.className = "ks-gantt-row-title";
         this.titleElement.innerText = this.title;
+        if (!this.isTitle)
+            this.titleElement.setAttribute("data-id", this.data.staff.id);
 
         this.rowElement = document.createElement("div");
         this.rowElement.className = "ks-gantt-row";
@@ -205,11 +207,88 @@ class KSGanttTask {
 }
 
 
+class KSGanttTaskArea {
+    constructor(containerId, data) {
+        this.container = document.getElementById(containerId);
+        this.data = data;
+        this.init();
+    }
+    init() {
+
+        this.data.forEach(o => {
+            var element = document.createElement("div");
+            element.className = "ks-gantt-task-area-item";
+            element.innerText = o.name;
+            element.style.backgroundColor = o.color;
+            element.setAttribute("draggable", true);
+            element.setAttribute("data-id", o.id);
+            this.container.appendChild(element);
+
+            element.addEventListener('drag', (event) => {
+                if (event.clientX === 0 && event.clientY === 0) return;
+
+                var ganttNames = document.querySelectorAll(".ks-gantt-row-title");
+                ganttNames.forEach(o => {
+                    o.classList.add("drag");
+
+                });
+
+                const elementUnder = document.elementFromPoint(event.clientX, event.clientY);
+
+                if (elementUnder) {
+                    if (elementUnder.classList.contains('ks-gantt-row-title')) {
+                        var ganttNames = document.querySelectorAll(".ks-gantt-row-title");
+                        ganttNames.forEach(o => {
+                            o.classList.remove("hov");
+
+                        });
+                        elementUnder.classList.add("hov");
+                    } else {
+                        var ganttNames = document.querySelectorAll(".ks-gantt-row-title");
+                        ganttNames.forEach(o => {
+                            o.classList.remove("hov");
+
+                        });
+                    }
+                }
+            });
+            element.addEventListener('dragend', (event) => {
+                var ganttNames = document.querySelectorAll(".ks-gantt-row-title");
+                ganttNames.forEach(o => {
+                    o.classList.remove("drag");
+                });
+
+                const elementUnder = document.elementFromPoint(event.clientX, event.clientY);
+
+                if (elementUnder) {
+                    if (elementUnder.classList.contains('ks-gantt-row-title')) {
+
+                        alert(`úkol ${element.innerText} byl vložen na pracovníka ${elementUnder.innerText}`);
+                        var ganttNames = document.querySelectorAll(".ks-gantt-row-title");
+                        ganttNames.forEach(o => {
+                            o.classList.remove("hov");
+
+                        });
+
+                    }
+                }
+            });
+
+
+
+            console.log(o);
+        });
+
+    }
+} 1
+
+
 window.InitKSGantt = function (data) {
-
-
     new KSGantt("ks-gantt", "2024-1-1", 30, 15, data);
+}
 
+window.InitKSGanttTaskArea = function (data) {
+    new KSGanttTaskArea("ks-gantt-task-area", data);
 }
 
 

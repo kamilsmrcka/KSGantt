@@ -6,6 +6,7 @@
 <PageTitle>Home</PageTitle>
 
 <div id="ks-gantt"></div>
+<div id="ks-gantt-task-area"></div>
 
 @code{
 
@@ -13,6 +14,7 @@
     protected override void OnAfterRender(bool firstRender)
     {
         JsRuntime.InvokeAsync<string>("InitKSGantt", DbHelper.staffTasks);
+        JsRuntime.InvokeAsync<string>("InitKSGanttTaskArea", DbHelper.tasks);
         base.OnAfterRender(firstRender);
     }
 
