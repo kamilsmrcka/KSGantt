@@ -22,6 +22,9 @@
     color: #6f6f6f;
     font-weight: 400;
 }
+    .ks-gantt-day-head.weekend {
+        background-color: #f5e4e4;
+    }
 
 .ks-gantt-row-title {
     display: flex;

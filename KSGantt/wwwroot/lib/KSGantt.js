@@ -15,13 +15,16 @@
         let currentDate = new Date(startDate);
 
         for (let i = 0; i < daysCount; i++) {
+            const dayOfWeek = currentDate.getDay();
             result.push({
                 day: currentDate.getDate(),
                 month: currentDate.getMonth() + 1,
-                year: currentDate.getFullYear()
+                year: currentDate.getFullYear(),
+                isWeekend: dayOfWeek === 0 || dayOfWeek === 6
             });
             currentDate.setDate(currentDate.getDate() + 1);
         }
+      
         return result;
     }
 
@@ -42,14 +45,14 @@
         this.namesContainer.appendChild(row.titleElement);
         this.eventsContainer.appendChild(row.rowElement);
 
-     
+
         data.forEach(obj => {
             const row = new KSGanttRow(this.daysCount, this.allDays, false, obj);
             this.rows.push(row);
             this.namesContainer.appendChild(row.titleElement);
             this.eventsContainer.appendChild(row.rowElement);
         });
-       
+
 
     }
 }
@@ -97,6 +100,10 @@ class KSGanttDay {
         if (this.isTitle) {
             const headTitle = document.createElement("div");
             headTitle.className = "ks-gantt-day-head";
+
+            if (this.dayData.isWeekend)
+                headTitle.classList.add("weekend");
+
             headTitle.setAttribute("data-day", `${this.dayData.day}.${this.dayData.month}.${this.dayData.year}`)
             headTitle.innerText = `${this.dayData.day}.${this.dayData.month}.${this.dayData.year}`;
             this.element.appendChild(headTitle);
@@ -126,7 +133,7 @@ class KSGanttTask {
         this.element.style.left = `${taskX}px`;
 
         var ceilDays = Math.ceil(data.hoursCount / 8);
-        this.element.style.width = `${ceilDays*242}px`;
+        this.element.style.width = `${ceilDays * 242}px`;
 
         const taskTitle = document.createElement("div");
         taskTitle.className = "ks-gantt-task-title";
@@ -139,12 +146,12 @@ class KSGanttTask {
     }
 
     formatDate(isoDate) {
-    
+
         const dateObj = new Date(isoDate);
 
-        const day = dateObj.getDate(); 
-        const month = dateObj.getMonth() + 1; 
-        const year = dateObj.getFullYear(); 
+        const day = dateObj.getDate();
+        const month = dateObj.getMonth() + 1;
+        const year = dateObj.getFullYear();
 
         return `${day}.${month}.${year}`;
     }
@@ -199,7 +206,7 @@ class KSGanttTask {
 
 
 window.InitKSGantt = function (data) {
-   
+
 
     new KSGantt("ks-gantt", "2024-1-1", 30, 15, data);
 
