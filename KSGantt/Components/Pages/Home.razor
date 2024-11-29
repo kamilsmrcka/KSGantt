@@ -8,17 +8,33 @@
 <div id="ks-gantt"></div>
 <div id="ks-gantt-task-area"></div>
 
-@code{
+@code {
 
 
     protected override void OnAfterRender(bool firstRender)
     {
-        JsRuntime.InvokeAsync<string>("InitKSGantt", DbHelper.staffTasks);
+        var StaffTasksData = DbHelper.staffTasks;
+
+        DbHelper.staffs.ForEach(o =>
+        {
+            if (StaffTasksData.FirstOrDefault(i => i.Staff.Id == o.Id) == null)
+            {
+                StaffTasksData.Add(new KSStaffTask()
+                {
+                 Id = Guid.Empty,
+                 Staff = o
+                });    
+
+            }
+        }
+        );
+
+        JsRuntime.InvokeAsync<string>("InitKSGantt", StaffTasksData);
         JsRuntime.InvokeAsync<string>("InitKSGanttTaskArea", DbHelper.tasks);
         base.OnAfterRender(firstRender);
     }
 
-   
 
-   
+
+
 }

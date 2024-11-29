@@ -21,7 +21,7 @@
                 month: currentDate.getMonth() + 1,
                 year: currentDate.getFullYear(),
                 isWeekend: dayOfWeek === 0 || dayOfWeek === 6,
-                date: `${currentDate.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear() }`
+                date: `${currentDate.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()}`
             });
             currentDate.setDate(currentDate.getDate() + 1);
         }
@@ -56,6 +56,42 @@
 
 
     }
+
+    afterDrop(taskID, staffID, taskData, currentDay) {
+        var staffRows = document.querySelectorAll(`.ks-gantt-row[data-staff-id="${staffID}"]`);
+        var lastStaffRow = staffRows[staffRows.length - 1];
+        var workingFactor = lastStaffRow.getAttribute("data-staff-workingfactor");
+
+        var data = [];
+        data.startDateISO = currentDay;
+        data.task = taskData;
+        data.hoursCount = data.task.hoursCount / workingFactor; 
+
+        const task = new KSGanttTask(data);
+
+        //pokud pracovník nebude mít přidělený žádný úkol, nový úkol se vloží do aktuálního řádku, pokud už nějaké úkoly mít bude, vytvoří se u aktuálního pracovníka nový řádek a do něj se vloží nová úloha
+
+        if (staffRows.length == 1) {
+            lastStaffRow.appendChild(task.element);
+        } else {
+            //var rowData = [];
+            //rowData.staff = [];
+            //rowData.staff.id = "ss";
+            //rowData.staff.name = "ss";
+            //rowData.staff.workingFactor = 1.1;
+
+            //const row = new KSGanttRow(this.daysCount, this.allDays, false, rowData);
+            //this.rows.push(row);
+            //this.namesContainer.appendChild(row.titleElement);
+            //this.eventsContainer.appendChild(row.rowElement);
+            
+        }
+
+        
+
+      
+
+    }
 }
 
 class KSGanttRow {
@@ -73,23 +109,26 @@ class KSGanttRow {
         this.titleElement = document.createElement("div");
         this.titleElement.className = "ks-gantt-row-title";
         this.titleElement.innerText = this.title;
-        if (!this.isTitle)
+        if (!this.isTitle) {
             this.titleElement.setAttribute("data-id", this.data.staff.id);
+        }
 
         this.rowElement = document.createElement("div");
         this.rowElement.className = "ks-gantt-row";
         this.rowElement.style.width = `${this.daysCount * 242}px`;
 
-        if (!this.isTitle)
+        if (!this.isTitle) {
             this.rowElement.setAttribute("data-staff-name", this.data.staff.name);
-
+            this.rowElement.setAttribute("data-staff-id", this.data.staff.id);
+            this.rowElement.setAttribute("data-staff-workingfactor", this.data.staff.workingFactor);
+        }
 
         for (const day of this.allDays) {
             const dayObj = new KSGanttDay(day, this.isTitle);
             this.rowElement.appendChild(dayObj.element);
         }
 
-        if (!this.isTitle) {
+        if (!this.isTitle && this.data.task != void 0) {
             const task = new KSGanttTask(this.data);
             this.tasks.push(task);
             this.rowElement.appendChild(task.element);
@@ -136,7 +175,12 @@ class KSGanttTask {
         this.element.className = "ks-gantt-task";
         this.data = data;
 
-        var date = this.formatDate(this.data.startDate);
+        var date;
+        if (this.data.startDateISO != void 0)
+            date = this.data.startDateISO;
+        else
+            date = this.formatDate(this.data.startDate);
+
         var titleElement = document.querySelector(`.ks-gantt-day-head[data-day="${date}"]`);
         var taskX = titleElement.getBoundingClientRect().left - titleElement.parentNode.parentNode.getBoundingClientRect().left;
         this.element.style.left = `${taskX}px`;
@@ -234,37 +278,37 @@ class KSGanttTaskArea {
             element.addEventListener('drag', (event) => {
                 if (event.clientX === 0 && event.clientY === 0) return;
 
-               
+
                 const elementUnder = document.elementFromPoint(event.clientX, event.clientY);
 
                 if (elementUnder) {
                     if (elementUnder.classList.contains('ks-gantt-hour')) {
                         var ganttNames = document.querySelectorAll(".ks-gantt-day");
                         ganttNames.forEach(o => {
-                            o.classList.remove("hov");
+                            o.classList.remove("under");
 
                         });
-                        elementUnder.parentNode.classList.add("hov");
+                        elementUnder.parentNode.classList.add("under");
                     } else {
                         var ganttNames = document.querySelectorAll(".ks-gantt-day");
                         ganttNames.forEach(o => {
-                            o.classList.remove("hov");
+                            o.classList.remove("under");
 
                         });
                     }
                 }
             });
             element.addEventListener('dragend', (event) => {
-            
+
                 const elementUnder = document.elementFromPoint(event.clientX, event.clientY);
 
                 if (elementUnder) {
                     if (elementUnder.classList.contains('ks-gantt-hour')) {
 
-                        alert(`úkol ${element.innerText} byl vložen na pracovníka ${elementUnder.parentNode.parentNode.getAttribute("data-staff-name")} v den ${elementUnder.parentNode.getAttribute("data-day")}`);
+                        ksGantt.afterDrop(element.getAttribute("data-id"), elementUnder.parentNode.parentNode.getAttribute("data-staff-id"), o, elementUnder.parentNode.getAttribute("data-day"));
                         var ganttNames = document.querySelectorAll(".ks-gantt-day");
                         ganttNames.forEach(o => {
-                            o.classList.remove("hov");
+                            o.classList.remove("under");
 
                         });
 
@@ -280,9 +324,9 @@ class KSGanttTaskArea {
     }
 } 1
 
-
+var ksGantt;
 window.InitKSGantt = function (data) {
-    new KSGantt("ks-gantt", "2024-1-1", 30, 15, data);
+    ksGantt = new KSGantt("ks-gantt", "2024-1-1", 30, 15, data);
 }
 
 window.InitKSGanttTaskArea = function (data) {
