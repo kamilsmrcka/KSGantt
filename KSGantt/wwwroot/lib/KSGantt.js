@@ -20,7 +20,8 @@
                 day: currentDate.getDate(),
                 month: currentDate.getMonth() + 1,
                 year: currentDate.getFullYear(),
-                isWeekend: dayOfWeek === 0 || dayOfWeek === 6
+                isWeekend: dayOfWeek === 0 || dayOfWeek === 6,
+                date: `${currentDate.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear() }`
             });
             currentDate.setDate(currentDate.getDate() + 1);
         }
@@ -102,6 +103,7 @@ class KSGanttDay {
         this.isTitle = isTitle;
         this.element = document.createElement("div");
         this.element.className = "ks-gantt-day";
+        this.element.setAttribute("data-day", this.dayData.date);
 
         if (this.isTitle) {
             const headTitle = document.createElement("div");
@@ -110,14 +112,15 @@ class KSGanttDay {
             if (this.dayData.isWeekend)
                 headTitle.classList.add("weekend");
 
-            headTitle.setAttribute("data-day", `${this.dayData.day}.${this.dayData.month}.${this.dayData.year}`)
-            headTitle.innerText = `${this.dayData.day}.${this.dayData.month}.${this.dayData.year}`;
+            headTitle.setAttribute("data-day", this.dayData.date)
+            headTitle.innerText = this.dayData.date;
             this.element.appendChild(headTitle);
         } else {
             for (let hour = 0; hour < 24; hour++) {
                 const hourElement = document.createElement("div");
                 hourElement.className = "ks-gantt-hour";
-                if (hour > 7 && hour < 16) {
+
+                if (!this.dayData.isWeekend && hour > 7 && hour < 16) {
                     hourElement.classList.add("wrk");
                 }
                 this.element.appendChild(hourElement);
@@ -184,22 +187,22 @@ class KSGanttTask {
             const rect = this.element.getBoundingClientRect();
             const offsetRight = rect.right - ev.clientX;
 
-            this.element.dataset.isResizing = offsetRight <= 10 ? "true" : "false";
-            this.element.dataset.isDragging = offsetRight > 10 ? "true" : "false";
+            this.element.isResizing = offsetRight <= 10 ? true : false;
+            this.element.isDragging = offsetRight > 10 ? true : false;
             this.element.setPointerCapture(ev.pointerId);
         };
 
         const drag = (ev) => {
-            if (this.element.dataset.isResizing === "true") {
+            if (this.element.isResizing) {
                 resize(ev);
-            } else if (this.element.dataset.isDragging === "true") {
+            } else if (this.element.isDragging) {
                 move(ev);
             }
         };
 
         const dragEnd = (ev) => {
-            this.element.dataset.isResizing = "false";
-            this.element.dataset.isDragging = "false";
+            this.element.isResizing = false;
+            this.element.isDragging = false;
             this.element.releasePointerCapture(ev.pointerId);
         };
 
@@ -258,7 +261,7 @@ class KSGanttTaskArea {
                 if (elementUnder) {
                     if (elementUnder.classList.contains('ks-gantt-hour')) {
 
-                        alert(`úkol ${element.innerText} byl vložen na pracovníka ${elementUnder.parentNode.parentNode.getAttribute("data-staff-name")}`);
+                        alert(`úkol ${element.innerText} byl vložen na pracovníka ${elementUnder.parentNode.parentNode.getAttribute("data-staff-name")} v den ${elementUnder.parentNode.getAttribute("data-day")}`);
                         var ganttNames = document.querySelectorAll(".ks-gantt-day");
                         ganttNames.forEach(o => {
                             o.classList.remove("hov");
