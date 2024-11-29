@@ -37,12 +37,8 @@
     border: 1px solid #d4def7;
     padding-left: 10px;
 }
-    .ks-gantt-row-title.drag {
-        border: 1px dashed #f79090;
-    }
-    .ks-gantt-row-title.hov {
-        background-color: #ffcaca;
-    }
+   
+   
     .ks-gantt-task-title {
     flex-wrap: nowrap;
     width: 100%;
@@ -74,16 +70,20 @@
     height: 28px;
     display: inline-block;
 }
+    .ks-gantt-day.hov {
+     border: 1px dashed red;
+    }
 
-.ks-gantt-hour {
-    border: 1px solid #edebeb;
-    background-color: #ffffff;
-    margin: 0px;
-    padding: 0px;
-    width: 10px;
-    height: 26px;
-    display: inline-block;
-}
+    .ks-gantt-hour {
+        border: 1px solid #edebeb;
+        background-color: #ffffff;
+        margin: 0px;
+        padding: 0px;
+        width: 10px;
+        height: 26px;
+        display: inline-block;
+    }
+   
 
     .ks-gantt-hour.wrk {
         background-color: #e8ffe7;
@@ -111,4 +111,7 @@
     text-shadow: #000000 0 0 4px;
     color: white;
     cursor: move;
+  
 }
+
+  

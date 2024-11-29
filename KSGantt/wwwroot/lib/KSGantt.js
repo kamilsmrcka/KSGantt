@@ -79,6 +79,10 @@ class KSGanttRow {
         this.rowElement.className = "ks-gantt-row";
         this.rowElement.style.width = `${this.daysCount * 242}px`;
 
+        if (!this.isTitle)
+            this.rowElement.setAttribute("data-staff-name", this.data.staff.name);
+
+
         for (const day of this.allDays) {
             const dayObj = new KSGanttDay(day, this.isTitle);
             this.rowElement.appendChild(dayObj.element);
@@ -227,24 +231,19 @@ class KSGanttTaskArea {
             element.addEventListener('drag', (event) => {
                 if (event.clientX === 0 && event.clientY === 0) return;
 
-                var ganttNames = document.querySelectorAll(".ks-gantt-row-title");
-                ganttNames.forEach(o => {
-                    o.classList.add("drag");
-
-                });
-
+               
                 const elementUnder = document.elementFromPoint(event.clientX, event.clientY);
 
                 if (elementUnder) {
-                    if (elementUnder.classList.contains('ks-gantt-row-title')) {
-                        var ganttNames = document.querySelectorAll(".ks-gantt-row-title");
+                    if (elementUnder.classList.contains('ks-gantt-hour')) {
+                        var ganttNames = document.querySelectorAll(".ks-gantt-day");
                         ganttNames.forEach(o => {
                             o.classList.remove("hov");
 
                         });
-                        elementUnder.classList.add("hov");
+                        elementUnder.parentNode.classList.add("hov");
                     } else {
-                        var ganttNames = document.querySelectorAll(".ks-gantt-row-title");
+                        var ganttNames = document.querySelectorAll(".ks-gantt-day");
                         ganttNames.forEach(o => {
                             o.classList.remove("hov");
 
@@ -253,18 +252,14 @@ class KSGanttTaskArea {
                 }
             });
             element.addEventListener('dragend', (event) => {
-                var ganttNames = document.querySelectorAll(".ks-gantt-row-title");
-                ganttNames.forEach(o => {
-                    o.classList.remove("drag");
-                });
-
+            
                 const elementUnder = document.elementFromPoint(event.clientX, event.clientY);
 
                 if (elementUnder) {
-                    if (elementUnder.classList.contains('ks-gantt-row-title')) {
+                    if (elementUnder.classList.contains('ks-gantt-hour')) {
 
-                        alert(`úkol ${element.innerText} byl vložen na pracovníka ${elementUnder.innerText}`);
-                        var ganttNames = document.querySelectorAll(".ks-gantt-row-title");
+                        alert(`úkol ${element.innerText} byl vložen na pracovníka ${elementUnder.parentNode.parentNode.getAttribute("data-staff-name")}`);
+                        var ganttNames = document.querySelectorAll(".ks-gantt-day");
                         ganttNames.forEach(o => {
                             o.classList.remove("hov");
 
