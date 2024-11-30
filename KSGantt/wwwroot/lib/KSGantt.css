@@ -18,10 +18,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #f4f4fb;
-    color: #6f6f6f;
-    font-weight: 400;
 }
+
     .ks-gantt-day-head.weekend {
         background-color: #f5e4e4;
     }
@@ -31,11 +29,9 @@
     height: 28px;
     width: 100%;
     align-items: center;
-    background-color: #f4f4fb;
-    color: #6f6f6f;
-    font-weight: 400;
-    border: 1px solid #d4def7;
+    font-weight: 700;
     padding-left: 10px;
+  
 }
 
 
@@ -63,27 +59,35 @@
 }
 
 .ks-gantt-day {
-    border: 1px solid #d4def7;
+    border-right: 1px solid #d4def7;
     margin: 0px;
     padding: 0px;
     width: 242px;
     height: 28px;
     display: inline-block;
 }
+
+    .ks-gantt-day.head, .ks-gantt-row-title {
+        border: 1px solid #e5e5e9;
+        background-color: #ededed;
+        color: #909090;
+        font-weight: 600;
+    }
+
     .ks-gantt-day.under {
         border: 1px dashed red;
     }
 
-    .ks-gantt-hour {
-        border: 1px solid #edebeb;
-        background-color: #ffffff;
-        margin: 0px;
-        padding: 0px;
-        width: 10px;
-        height: 26px;
-        display: inline-block;
-    }
-   
+.ks-gantt-hour {
+    border: 1px solid #edebeb;
+    background-color: #ffffff;
+    margin: 0px;
+    padding: 0px;
+    width: 10px;
+    height: 26px;
+    display: inline-block;
+}
+
 
     .ks-gantt-hour.wrk {
         background-color: #e8ffe7;
@@ -91,11 +95,20 @@
 
 .ks-gantt-task {
     position: absolute;
-    height: 24px;
+    height: 22px;
     border-radius: 5px;
     width: 480px;
     top: 2px;
 }
+
+.groupstart {
+    
+}
+
+.groupend {
+    border-bottom: 1px solid #c7c7c7;
+}
+
 
 
 
@@ -104,13 +117,12 @@
 }
 
 .ks-gantt-task-area-item {
-    padding: 2px 5px;
+    padding: 3px 4px;
     margin: 2px;
-    border: 1px solid silver;
     border-radius: 6px;
-    text-shadow: #000000 1px 1px 3px; 
+    text-shadow: #000000 1px 1px 3px;
     color: white;
     cursor: move;
+    font-weight: 400;
+    font-size: small;
 }
-
-  

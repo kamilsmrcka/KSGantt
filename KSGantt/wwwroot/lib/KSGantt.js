@@ -20,6 +20,8 @@
                 e.preventDefault();
             }
         });
+
+        this.createGroups();
     }
 
     generateDateArray(startDate, daysCount) {
@@ -76,12 +78,12 @@
 
         var headRows = document.querySelectorAll(`.ks-gantt-row-title[data-id="${staffID}"]`);
         var lastHeadRow = headRows[headRows.length - 1];
-      
+
 
         var data = [];
         data.startDateISO = currentDay;
         data.task = taskData;
-        data.hoursCount = data.task.hoursCount / workingFactor; 
+        data.hoursCount = data.task.hoursCount / workingFactor;
 
         const task = new KSGanttTask(data);
 
@@ -103,13 +105,39 @@
             lastStaffRow.after(newRow.rowElement);
 
             newRow.rowElement.appendChild(task.element);
-            
         }
+        this.createGroups();
+    }
 
-        
+    createGroups() {
+        var headerRowTitles = document.querySelectorAll(".ks-gantt-row-title");
+        var prevHeaderRowTitle = headerRowTitles[0];
 
-      
+        headerRowTitles.forEach(function (element) {
+            element.classList.add("groupend");
+            if (element.getAttribute("data-id") != prevHeaderRowTitle.getAttribute("data-id")) {
+                element.classList.add("groupstart");
+            } else {
+                element.classList.remove("groupstart");
+                element.innerText = "";
+                prevHeaderRowTitle.classList.remove("groupend");
+            }
+            prevHeaderRowTitle = element;
+        });
 
+        var rowTitles = document.querySelectorAll(".ks-gantt-row");
+        var prevRowTitle = rowTitles[0];
+
+        rowTitles.forEach(function (element) {
+            element.classList.add("groupend");
+            if (element.getAttribute("data-staff-id") != prevRowTitle.getAttribute("data-staff-id")) {
+                element.classList.add("groupstart");
+            } else {
+                element.classList.remove("groupstart");
+                prevRowTitle.classList.remove("groupend");
+            }
+            prevRowTitle = element;
+        });
     }
 }
 
@@ -161,6 +189,8 @@ class KSGanttDay {
         this.isTitle = isTitle;
         this.element = document.createElement("div");
         this.element.className = "ks-gantt-day";
+        if (this.isTitle)
+            this.element.classList.add("head");
         this.element.setAttribute("data-day", this.dayData.date);
 
         if (this.isTitle) {
