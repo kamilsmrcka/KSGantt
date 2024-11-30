@@ -20,13 +20,13 @@
             KSStaff st1p = new KSStaff() { Category = ct2, WorkingFactor = 1, Name = "Projektant 1" };
             KSStaff st2p = new KSStaff() { Category = ct2, WorkingFactor = 1.2, Name = "Projektant 2" };
 
-            KSTask ts1b = new KSTask() { Category = ct1, HoursCount = 16, Color = "rgba(52, 82, 235,0.5)", Name = "Výkop jámy" };
-            KSTask ts2b = new KSTask() { Category = ct1, HoursCount = 3, Color = "rgba(52, 235, 64,0.5)", Name = "Naložení hlíny" };
-            KSTask ts3b = new KSTask() { Category = ct1, HoursCount = 34, Color = "rgba(235, 52, 52,0.5)", Name = "Výkop základů" };
-            KSTask ts4b = new KSTask() { Category = ct1, HoursCount = 4, Color = "rgba(235, 134, 52,0.5)", Name = "Rozhrnutí hlíny" };
+            KSTask ts1b = new KSTask() { Category = ct1, HoursCount = 16, Color = "rgba(52, 82, 235,0.4)", Name = "Výkop jámy" };
+            KSTask ts2b = new KSTask() { Category = ct1, HoursCount = 3, Color = "rgba(52, 235, 64,0.4)", Name = "Naložení hlíny" };
+            KSTask ts3b = new KSTask() { Category = ct1, HoursCount = 34, Color = "rgba(235, 52, 52,0.4)", Name = "Výkop základů" };
+            KSTask ts4b = new KSTask() { Category = ct1, HoursCount = 4, Color = "rgba(235, 134, 52,0.4)", Name = "Rozhrnutí hlíny" };
 
-            KSTask ts1p = new KSTask() { Category = ct2, HoursCount = 3, Color = "rgba(198, 52, 235,0.5)", Name = "Zaměření jámy" };
-            KSTask ts2p = new KSTask() { Category = ct2, HoursCount = 20, Color = "rgba(135, 97, 59,0.5)", Name = "Zaměření základů" };
+            KSTask ts1p = new KSTask() { Category = ct2, HoursCount = 3, Color = "rgba(198, 52, 235,0.4)", Name = "Zaměření jámy" };
+            KSTask ts2p = new KSTask() { Category = ct2, HoursCount = 20, Color = "rgba(135, 97, 59,0.4)", Name = "Zaměření základů" };
 
             KSStaffTask stt1b = new KSStaffTask() { StartDate = new DateTime(2024,1,2), Project = pr, Staff = st1b, Task = ts1b };
             KSStaffTask stt2b = new KSStaffTask() { StartDate = new DateTime(2024,1,4), Project = pr, Staff = st1b, Task = ts2b };

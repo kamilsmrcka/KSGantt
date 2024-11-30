@@ -12,13 +12,12 @@
         const hScrollContainer = document.querySelector(".ks-gantt-events");
         hScrollContainer.addEventListener("wheel", function (e) {
             if (e.deltaY > 0) {
-                hScrollContainer.scrollLeft += 100;
-                e.preventDefault();
+                hScrollContainer.scrollLeft += 50;
             }
             else {
-                hScrollContainer.scrollLeft -= 100;
-                e.preventDefault();
+                hScrollContainer.scrollLeft -= 50;
             }
+            e.preventDefault();
         });
 
         this.createGroups();

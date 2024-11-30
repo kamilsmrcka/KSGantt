@@ -45,8 +45,9 @@
     font-weight: 400;
     font-size: small;
     overflow: hidden;
-    text-shadow: #000000 1px 1px 3px;
+    text-shadow: #656a6f 1px 1px 3px;
     color: white;
+
 }
 
 
@@ -68,8 +69,7 @@
 }
 
     .ks-gantt-day.head, .ks-gantt-row-title {
-        border: 1px solid #e5e5e9;
-        background-color: #ededed;
+        background-color: #fefefe;
         color: #909090;
         font-weight: 600;
     }
@@ -99,6 +99,7 @@
     border-radius: 5px;
     width: 480px;
     top: 2px;
+    border: 1px solid #d3d3d3;
 }
 
 .groupstart {
@@ -120,9 +121,10 @@
     padding: 3px 4px;
     margin: 2px;
     border-radius: 6px;
-    text-shadow: #000000 1px 1px 3px;
+    text-shadow: #656a6f 1px 1px 3px;
     color: white;
     cursor: move;
     font-weight: 400;
     font-size: small;
+    border: 1px solid #d3d3d3;
 }
