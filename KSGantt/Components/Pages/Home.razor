@@ -30,7 +30,7 @@
         );
 
         JsRuntime.InvokeAsync<string>("InitKSGantt", StaffTasksData);
-        JsRuntime.InvokeAsync<string>("InitKSGanttTaskArea", DbHelper.tasks);
+        JsRuntime.InvokeAsync<string>("InitKSGanttTaskArea", DbHelper.tasks, DbHelper.categories);
         base.OnAfterRender(firstRender);
     }
 

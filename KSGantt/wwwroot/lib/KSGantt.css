@@ -114,7 +114,7 @@
 
 
 #ks-gantt-task-area {
-    display: inline-block;
+    display: flex;
 }
 
 .ks-gantt-task-area-item {

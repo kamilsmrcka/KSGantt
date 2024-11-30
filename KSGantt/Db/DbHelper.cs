@@ -27,6 +27,8 @@
 
             KSTask ts1p = new KSTask() { Category = ct2, HoursCount = 3, Color = "rgba(198, 52, 235,0.4)", Name = "Zaměření jámy" };
             KSTask ts2p = new KSTask() { Category = ct2, HoursCount = 20, Color = "rgba(135, 97, 59,0.4)", Name = "Zaměření základů" };
+            KSTask ts3p = new KSTask() { Category = ct2, HoursCount = 16, Color = "rgba(255, 165, 138,0.4)", Name = "Zpracování dokumentace" };
+            KSTask ts4p = new KSTask() { Category = ct2, HoursCount = 40, Color = "rgba(2, 250, 213,0.4)", Name = "Návrh stavby" };
 
             KSStaffTask stt1b = new KSStaffTask() { StartDate = new DateTime(2024,1,2), Project = pr, Staff = st1b, Task = ts1b };
             KSStaffTask stt2b = new KSStaffTask() { StartDate = new DateTime(2024,1,4), Project = pr, Staff = st1b, Task = ts2b };
@@ -39,7 +41,7 @@
             projects.AddRange(new[] { pr });
             categories.AddRange(new[] { ct1, ct2 });
             staffs.AddRange(new[] { st1b, st2b, st1p, st2p });
-            tasks.AddRange(new[] { ts1b, ts2b, ts3b, ts4b, ts1p, ts2p });
+            tasks.AddRange(new[] { ts1b, ts2b, ts3b, ts4b, ts1p, ts2p, ts3p, ts4p });
             staffTasks.AddRange(new[] { stt1p, stt2p, stt1b, stt2b, stt3b, stt4b });
 
 

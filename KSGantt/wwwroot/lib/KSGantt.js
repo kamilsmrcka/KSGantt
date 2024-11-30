@@ -307,67 +307,84 @@ class KSGanttTask {
 
 
 class KSGanttTaskArea {
-    constructor(containerId, data) {
+    constructor(containerId, data, catsData) {
         this.container = document.getElementById(containerId);
         this.data = data;
+        this.catsData = catsData;
         this.init();
     }
     init() {
 
-        this.data.forEach(o => {
-            var element = document.createElement("div");
-            element.className = "ks-gantt-task-area-item";
-            element.innerText = o.name;
-            element.style.backgroundColor = o.color;
-            element.setAttribute("draggable", true);
-            element.setAttribute("data-id", o.id);
-            this.container.appendChild(element);
+        this.catsData.forEach(c => {
 
-            element.addEventListener('drag', (event) => {
-                if (event.clientX === 0 && event.clientY === 0) return;
+            var elementColumn = document.createElement("div");
+            elementColumn.className = "ks-gantt-task-area-column";
+            this.container.appendChild(elementColumn);
+
+            var elementTitle = document.createElement("div");
+            elementTitle.className = "ks-gantt-task-area-title";
+            elementTitle.innerText = c.name;
+            elementColumn.appendChild(elementTitle);
+
+            this.data.forEach(o => {
+                if (o.category.id != c.id) return;
+                var element = document.createElement("div");
+                element.className = "ks-gantt-task-area-item";
+                element.innerText = o.name;
+                element.style.backgroundColor = o.color;
+                element.setAttribute("draggable", true);
+                element.setAttribute("data-id", o.id);
+                elementColumn.appendChild(element);
+
+                element.addEventListener('drag', (event) => {
+                    if (event.clientX === 0 && event.clientY === 0) return;
 
 
-                const elementUnder = document.elementFromPoint(event.clientX, event.clientY);
+                    const elementUnder = document.elementFromPoint(event.clientX, event.clientY);
 
-                if (elementUnder) {
-                    if (elementUnder.classList.contains('ks-gantt-hour')) {
-                        var ganttNames = document.querySelectorAll(".ks-gantt-day");
-                        ganttNames.forEach(o => {
-                            o.classList.remove("under");
+                    if (elementUnder) {
+                        if (elementUnder.classList.contains('ks-gantt-hour')) {
+                            var ganttNames = document.querySelectorAll(".ks-gantt-day");
+                            ganttNames.forEach(o => {
+                                o.classList.remove("under");
 
-                        });
-                        elementUnder.parentNode.classList.add("under");
-                    } else {
-                        var ganttNames = document.querySelectorAll(".ks-gantt-day");
-                        ganttNames.forEach(o => {
-                            o.classList.remove("under");
+                            });
+                            elementUnder.parentNode.classList.add("under");
+                        } else {
+                            var ganttNames = document.querySelectorAll(".ks-gantt-day");
+                            ganttNames.forEach(o => {
+                                o.classList.remove("under");
 
-                        });
+                            });
+                        }
                     }
-                }
-            });
-            element.addEventListener('dragend', (event) => {
+                });
+                element.addEventListener('dragend', (event) => {
 
-                const elementUnder = document.elementFromPoint(event.clientX, event.clientY);
+                    const elementUnder = document.elementFromPoint(event.clientX, event.clientY);
 
-                if (elementUnder) {
-                    if (elementUnder.classList.contains('ks-gantt-hour')) {
+                    if (elementUnder) {
+                        if (elementUnder.classList.contains('ks-gantt-hour')) {
 
-                        ksGantt.afterDrop(element.getAttribute("data-id"), elementUnder.parentNode.parentNode.getAttribute("data-staff-id"), o, elementUnder.parentNode.getAttribute("data-day"));
-                        var ganttNames = document.querySelectorAll(".ks-gantt-day");
-                        ganttNames.forEach(o => {
-                            o.classList.remove("under");
+                            ksGantt.afterDrop(element.getAttribute("data-id"), elementUnder.parentNode.parentNode.getAttribute("data-staff-id"), o, elementUnder.parentNode.getAttribute("data-day"));
+                            var ganttNames = document.querySelectorAll(".ks-gantt-day");
+                            ganttNames.forEach(o => {
+                                o.classList.remove("under");
 
-                        });
+                            });
 
+                        }
                     }
-                }
+                });
+
+
+
+             
             });
 
-
-
-            console.log(o);
         });
+
+       
 
     }
 } 1
@@ -377,8 +394,8 @@ window.InitKSGantt = function (data) {
     ksGantt = new KSGantt("ks-gantt", "2024-1-1", 30, 15, data);
 }
 
-window.InitKSGanttTaskArea = function (data) {
-    new KSGanttTaskArea("ks-gantt-task-area", data);
+window.InitKSGanttTaskArea = function (data, catsdata) {
+    new KSGanttTaskArea("ks-gantt-task-area", data,catsdata);
 }
 
 
