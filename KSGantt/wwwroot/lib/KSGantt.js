@@ -8,6 +8,18 @@
         this.rows = [];
         this.data = data;
         this.init();
+
+        const hScrollContainer = document.querySelector(".ks-gantt-events");
+        hScrollContainer.addEventListener("wheel", function (e) {
+            if (e.deltaY > 0) {
+                hScrollContainer.scrollLeft += 100;
+                e.preventDefault();
+            }
+            else {
+                hScrollContainer.scrollLeft -= 100;
+                e.preventDefault();
+            }
+        });
     }
 
     generateDateArray(startDate, daysCount) {
