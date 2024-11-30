@@ -69,21 +69,24 @@
 
         const task = new KSGanttTask(data);
 
-        //pokud pracovník nebude mít přidělený žádný úkol, nový úkol se vloží do aktuálního řádku, pokud už nějaké úkoly mít bude, vytvoří se u aktuálního pracovníka nový řádek a do něj se vloží nová úloha
+        var countOfTasks = lastStaffRow.querySelectorAll(`.ks-gantt-task`).length;
 
-        if (staffRows.length == 1) {
+
+        if (countOfTasks == 0) {
             lastStaffRow.appendChild(task.element);
         } else {
-            //var rowData = [];
-            //rowData.staff = [];
-            //rowData.staff.id = "ss";
-            //rowData.staff.name = "ss";
-            //rowData.staff.workingFactor = 1.1;
+            var rowData = [];
+            rowData.staff = [];
+            rowData.staff.id = staffID;
+            rowData.staff.name = lastStaffRow.getAttribute("data-staff-name");
+            rowData.staff.workingFactor = lastStaffRow.getAttribute("data-staff-workingfactor");
 
-            //const row = new KSGanttRow(this.daysCount, this.allDays, false, rowData);
-            //this.rows.push(row);
-            //this.namesContainer.appendChild(row.titleElement);
-            //this.eventsContainer.appendChild(row.rowElement);
+            const newRow = new KSGanttRow(this.daysCount, this.allDays, false, rowData);
+            this.rows.push(newRow);
+            this.namesContainer.appendChild(newRow.titleElement);
+            this.eventsContainer.appendChild(newRow.rowElement);
+
+            newRow.rowElement.appendChild(task.element);
             
         }
 
