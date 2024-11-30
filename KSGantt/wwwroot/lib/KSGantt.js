@@ -62,6 +62,10 @@
         var lastStaffRow = staffRows[staffRows.length - 1];
         var workingFactor = lastStaffRow.getAttribute("data-staff-workingfactor");
 
+        var headRows = document.querySelectorAll(`.ks-gantt-row-title[data-id="${staffID}"]`);
+        var lastHeadRow = headRows[headRows.length - 1];
+      
+
         var data = [];
         data.startDateISO = currentDay;
         data.task = taskData;
@@ -83,8 +87,8 @@
 
             const newRow = new KSGanttRow(this.daysCount, this.allDays, false, rowData);
             this.rows.push(newRow);
-            this.namesContainer.appendChild(newRow.titleElement);
-            this.eventsContainer.appendChild(newRow.rowElement);
+            lastHeadRow.after(newRow.titleElement);
+            lastStaffRow.after(newRow.rowElement);
 
             newRow.rowElement.appendChild(task.element);
             
