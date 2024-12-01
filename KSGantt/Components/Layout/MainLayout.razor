@@ -3,12 +3,11 @@
     <RadzenHeader>
         <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0">
             <RadzenSidebarToggle Click="@(() => sidebar1Expanded = !sidebar1Expanded)" />
-            <RadzenLabel Text="Header" />
         </RadzenStack>
     </RadzenHeader>
     <RadzenSidebar @bind-Expanded="@sidebar1Expanded">
         <RadzenPanelMenu>
-            <RadzenPanelMenuItem Text="Graf" Icon="monitoring" Path="/" />
+            <RadzenPanelMenuItem Text="Diagram" Icon="monitoring" Path="/" />
             <RadzenPanelMenuItem Text="Kategorie" Icon="category" Path="CategoriesList" />
             <RadzenPanelMenuItem Text="Úkoly" Icon="keep" Path="TasksList" />
             <RadzenPanelMenuItem Text="Pracovníci" Icon="groups" Path="StaffsList" />

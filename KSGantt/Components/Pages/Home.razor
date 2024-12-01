@@ -3,8 +3,8 @@
 @rendermode InteractiveServer
 @inject IJSRuntime JsRuntime
 
-<PageTitle>Home</PageTitle>
-
+<PageTitle>Graf</PageTitle>
+<RadzenText TextStyle="TextStyle.H5">DIAGRAM PLÁNOVÁNÍ</RadzenText>
 <div id="ks-gantt"></div>
 <div id="ks-gantt-task-area"></div>
 
@@ -13,7 +13,7 @@
 
     protected override void OnAfterRender(bool firstRender)
     {
-        var StaffTasksData = DbHelper.staffTasks;
+        var StaffTasksData = new List<KSStaffTask>(DbHelper.staffTasks);
 
         DbHelper.staffs.ForEach(o =>
         {

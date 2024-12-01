@@ -3,10 +3,15 @@
 @rendermode InteractiveServer
 
 <PageTitle>Plánování</PageTitle>
-<RadzenText TextStyle="TextStyle.H5">Plánování</RadzenText>
+<RadzenText TextStyle="TextStyle.H5">PLÁNOVÁNÍ</RadzenText>
 
-<RadzenDataGrid PageSize="5" AllowPaging="true" AllowSorting="true" ColumnWidth="200px" Data="@innerList" AllowFiltering="true" AllowAlternatingRows="false" RowRender="RowRender">
+<RadzenDataGrid PageSize="10" AllowPaging="true" AllowSorting="true" ColumnWidth="200px" Data="@innerList" AllowFiltering="true">
     <Columns>
+        <RadzenDataGridColumn TItem="KSStaffTask" SortProperty="Task.Color" Width="50px" Property="Color" Title="Barva" TextAlign="TextAlign.Center">
+            <Template Context="KSStaffTask">
+                <div style="width: 50px; height: 19px; background-color: @KSStaffTask.Task.Color;"></div>
+            </Template>
+        </RadzenDataGridColumn>
         <RadzenDataGridColumn Property="@nameof(KSStaffTask.Id)" Title="ID" Visible="false" />
         <RadzenDataGridColumn Property="@nameof(KSStaffTask.StartDate)" Title="Zahájení" />
         <RadzenDataGridColumn Property="KSStaffTask.Project.Name" Title="Projekt" SortProperty="Project.Name" />
@@ -27,16 +32,16 @@
 
     }
 
-    void RowRender(RowRenderEventArgs<KSStaffTask> args)
-    {
+    // void RowRender(RowRenderEventArgs<KSStaffTask> args)
+    // {
 
-        if (args.Data.Task != null && args.Data.Task.Color != null)
-        {
-            args.Attributes.Add("style", $"background-color:{args.Data.Task.Color};");
+    //     if (args.Data.Task != null && args.Data.Task.Color != null)
+    //     {
+    //         args.Attributes.Add("style", $"background-color:{args.Data.Task.Color};");
 
 
-        }
+    //     }
 
-    }
+    // }
 
 }

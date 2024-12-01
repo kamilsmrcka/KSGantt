@@ -206,6 +206,7 @@ class KSGanttDay {
             for (let hour = 0; hour < 24; hour++) {
                 const hourElement = document.createElement("div");
                 hourElement.className = "ks-gantt-hour";
+                hourElement.ondragover = (ev) => ev.preventDefault();
 
                 if (!this.dayData.isWeekend && hour > 7 && hour < 16) {
                     hourElement.classList.add("wrk");
